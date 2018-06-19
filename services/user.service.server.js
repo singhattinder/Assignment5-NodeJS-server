@@ -7,6 +7,7 @@ app.post('/api/user', createUser);
 app.get('/api/profile', profile);
 app.post('/api/logout', logout);
 app.post('/api/login', login);
+app.put('/api/profile', updateUser);
 var userModel = require('../models/user/user.model.server');
 
 function findAllUsers(req, res) {
@@ -28,18 +29,33 @@ function login(req, res) {
     userModel.findUserByCredentials(credentials)
         .then(function (user) {
             req.session['currentUser'] = user;
-
             res.json(user);
         })
 }
 
 function profile(req, res) {
-    res.send(req.session['currentUser']);
+    var currentUser = req.session.currentUser;
+    var studentId = currentUser._id;
+    userModel.findUserById(studentId)
+        .then(function (user) {
+            res.json(user);
+        });
+
 }
 
 function logout(req, res) {
     req.session.destroy();
     res.send(200);
+}
+
+function updateUser(req, res) {
+    var user = req.body;
+    var currentUser = req.session.currentUser;
+    var studentId = currentUser._id;
+    userModel.updateUser(studentId, user)
+        .then(function (user) {
+            res.json(user);
+        })
 }
 
 function createUser(req, res) {
