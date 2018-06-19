@@ -6,13 +6,13 @@ mongoose.connect('mongodb://localhost/webdev-summer1-2018');
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extend: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(session({
 
     resave:false,
     saveUninitialized:true,
-    secret:'hello'
+    secret:'icecream'
 
 }));
 
@@ -29,8 +29,11 @@ app.use(function(req, res, next) {
 });
 
 
+
 var userService = require('./services/user.service.server');
 userService(app);
+var sectionService = require('./services/section.service.server');
+sectionService(app);
 
 
 app.listen(4000);
