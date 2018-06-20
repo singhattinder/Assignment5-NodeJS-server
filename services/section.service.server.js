@@ -4,6 +4,9 @@ module.exports = function (app) {
     app.post('/api/section/:sectionId/enrollment', enrollStudentInSection);
     app.get('/api/student/section', findSectionsForStudents);
     app.delete('/api/student/section/:sectionId', unEnrollStudentInSection);
+    app.delete('/api/section/:sectionId', deleteSection);
+    app.get('/api/section/:sectionId', getSectionById);
+    app.put('/api/section/:sectionId', updateSectionById);
 
     var sectionModel = require('../models/section/section.model.server');
     var enrollmentModel = require('../models/enrollment/enrollment.model.server');
@@ -23,6 +26,14 @@ module.exports = function (app) {
             .findSectionsForStudents(studentId)
             .then(function (enrollments) {
                 res.json(enrollments);
+            })
+    }
+
+    function getSectionById(req, res) {
+        var sectionId = req.params['sectionId'];
+        sectionModel.getSectionById(sectionId)
+            .then(function (section) {
+                res.json(section);
             })
     }
 
@@ -63,6 +74,14 @@ module.exports = function (app) {
 
     }
 
+    function deleteSection(req, res) {
+        var sectionId = req.params['sectionId'];
+        sectionModel.deleteSection(sectionId)
+            .then(function (section) {
+                res.json(section);
+            })
+    }
+
     function createSection(req, res) {
         var section = req.body;
         sectionModel.createSection(section)
@@ -70,4 +89,12 @@ module.exports = function (app) {
                 res.json(section);
             })
     }
-}
+    function updateSectionById(req, res) {
+        var section = req.body;
+        var sectionId = req.params['sectionId'];
+        sectionModel.updateSectionById(sectionId, section.name, section.seats)
+            .then(function (section) {
+                res.json(section);
+            })
+    }
+};

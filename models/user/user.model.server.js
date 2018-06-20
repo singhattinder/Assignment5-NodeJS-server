@@ -17,7 +17,7 @@ function findUserById(userId){
 }
 
 function findUserByCredentials(credentials) {
-     return userModel.findOne(credentials,  {password: -1});
+     return userModel.findOne(credentials,  {username: 1, userType: 1});
 }
 
 function updateUser(studentId, user) {

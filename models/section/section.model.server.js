@@ -19,6 +19,14 @@ function decrementSectionSeats(sectionId) {
     });
 }
 
+function updateSectionById(sectionId, sectionName, sectionSeats) {
+    return sectionModel.update({
+        _id: sectionId
+    }, {
+        $set: {name: sectionName, seats: sectionSeats}
+    });
+}
+
 function incrementSectionSeats(sectionId) {
     return sectionModel.update({
         _id: sectionId
@@ -26,12 +34,26 @@ function incrementSectionSeats(sectionId) {
         $inc: {seats: 1}
     });
 }
+function deleteSection(sectionId) {
+    return sectionModel.remove({
+        _id: sectionId
+    });
+}
+
+function getSectionById(sectionId) {
+    return sectionModel.findOne({
+        _id: sectionId
+    });
+}
 
 var api = {
     createSection: createSection,
     findSectionsForCourse: findSectionsForCourse,
     decrementSectionSeats: decrementSectionSeats,
-    incrementSectionSeats: incrementSectionSeats
+    incrementSectionSeats: incrementSectionSeats,
+    deleteSection: deleteSection,
+    getSectionById: getSectionById,
+    updateSectionById: updateSectionById
 };
 
 module.exports = api;
