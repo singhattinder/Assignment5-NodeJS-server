@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var session = require('express-session');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/webdev-summer1-2018');
+mongoose.connect(process.env.MONGODB_URI);
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -36,4 +36,7 @@ var sectionService = require('./services/section.service.server');
 sectionService(app);
 
 
-app.listen(4000);
+var server = app.listen(process.env.PORT || 3000, function () {
+    var port = server.address().port;
+    console.log("App now running on port", port);
+});
