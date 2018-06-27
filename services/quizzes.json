@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "1",
+    "name": "quiz 1",
+    "questions": [
+      {"type": "fillin", "_id": "11"},
+      {"type": "multiplechoice", "_id": "22"},
+      {"type": "truefalse", "_id": "33"},
+      {"type": "essay", "_id": "44"}
+    ]
+  },
+  {
+    "_id": "2",
+    "name": "quiz 2"},
+  {
+    "_id": "3",
+    "name": "quiz 3"},
+  {
+    "_id": "4",
+    "name": "quiz 4"},
+  {
+    "_id": "5",
+    "name": "quiz 5"}
+]
